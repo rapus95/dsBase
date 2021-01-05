@@ -8,29 +8,23 @@
 #' @author Matthis A
 #' @export
 #'
-rocDS <- function(xvect){
+rocDS <- function(prediction, reference, breaks){
 
   #############################################################
   # MODULE 1: CAPTURE THE nfilter SETTINGS
-  thr <- listDisclosureSettingsDS()
-  nfilter.tab <- as.numeric(thr$nfilter.tab)
+  # thr <- listDisclosureSettingsDS()
+  # nfilter.tab <- as.numeric(thr$nfilter.tab)
   #nfilter.glm <- as.numeric(thr$nfilter.glm)
   #nfilter.subset <- as.numeric(thr$nfilter.subset)
   #nfilter.string <- as.numeric(thr$nfilter.string)
   #############################################################
 
-  out.mean <- mean(xvect, na.rm=TRUE)
-  out.numNa <- length(which(is.na(xvect)))
-  out.totN <- length(xvect)
-  out.validN <- out.totN-out.numNa
-  studysideMessage <- "VALID ANALYSIS"
+  res <- roc(reference, prediction)
 
-  if(out.validN < nfilter.tab){
-    out.mean <- NA
-    studysideMessage <- "FAILED: Nvalid less than nfilter.tab"
-  }
+  out.specificities <- res$specificities
+  out.sensitivities <- res$sensitivities
 
-  out.obj <- list(EstimatedMean=out.mean,Nmissing=out.numNa,Nvalid=out.validN,Ntotal=out.totN,ValidityMessage=studysideMessage)
+  out.obj <- list(Specificities=out.specificities,Sensitivities=out.sensitivities)
   return(out.obj)
 
 }
