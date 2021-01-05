@@ -19,7 +19,7 @@ rocDS <- function(prediction, reference, breaks){
   #nfilter.string <- as.numeric(thr$nfilter.string)
   #############################################################
 
-  res <- roc(reference, prediction)
+  res <- pROC::roc(reference, prediction)
 
   out.specificities <- res$specificities
   out.sensitivities <- res$sensitivities
