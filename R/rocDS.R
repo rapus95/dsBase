@@ -24,7 +24,13 @@ rocDS <- function(prediction, reference){
   out.specificities <- res$specificities
   out.sensitivities <- res$sensitivities
 
-  out.obj <- list(Specificities=out.specificities,Sensitivities=out.sensitivities)
+  nex <- Position(function(x) x>0.5, res$thresholds)
+  pre <- nex - 1
+  s <- (res$thresholds[nex]-0.5)/(res$thresholds[nex]-res$thresholds[pre])
+  out.tspec <- s*res$specificities[nex]+(1-s)*res$specificities[pre]
+  out.tsens <- s*res$sensitivities[nex]+(1-s)*res$sensitivities[pre]
+
+  out.obj <- list(Specificities=out.specificities,Sensitivities=out.sensitivities, Threshold=c(x=out.tspec, y=out.tsens))
   return(out.obj)
 
 }
