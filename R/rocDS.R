@@ -1,14 +1,14 @@
 #'
-#' @title Computes statistical mean of a vectores
-#' @description Calculates the mean value.
-#' @details if the length of input vector is less than the set filter
-#' a missing value is returned.
-#' @param xvect a vector
-#' @return a numeric, the statistical mean
+#' @title Computes the important points of a roc curve for given reference/prediction
+#' @description Calculates roc points.
+#' @details if the length of prediction and reference vectors don't match an error is returned.
+#' @param prediction a numeric vector (values between 0 and 1) holding the tendency to lean towards a positive or negative outcome.
+#' @param reference a logical (boolean) vector refering to the "truth" on which case is positive/true or negative/false.
+#' @return two same-length numerical vectors corresponding to the sensitivity/specificity values to draw a roc curve.
 #' @author Matthis A
 #' @export
 #'
-rocDS <- function(prediction, reference, breaks){
+rocDS <- function(prediction, reference){
 
   #############################################################
   # MODULE 1: CAPTURE THE nfilter SETTINGS
