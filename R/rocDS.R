@@ -8,7 +8,7 @@
 #' @author Matthis A
 #' @export
 #'
-rocDS <- function(prediction, reference){
+rocDS <- function(reference, prediction){
 
   #############################################################
   # MODULE 1: CAPTURE THE nfilter SETTINGS
